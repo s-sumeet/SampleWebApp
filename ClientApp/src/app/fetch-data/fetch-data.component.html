@@ -7,18 +7,35 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <!--<th>Date</th>
+  <th>Temp. (C)</th>
+  <th>Temp. (F)</th>
+  <th>Summary</th>-->
+
+      <th>Id</th>
+      <th>fullname</th>
+      <th>notes</th>
+      <th>expdate</th>
+      <th>quantity</th>
+      <th>Operation</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+      <!--<td>{{ forecast.date }}</td>
+  <td>{{ forecast.temperatureC }}</td>
+  <td>{{ forecast.temperatureF }}</td>
+  <td>{{ forecast.summary }}</td>-->
+
+      <td>{{ forecast.id }}</td>
+      <td>{{ forecast.fullName }}</td>
+      <td>{{ forecast.notes }}</td>
+      <td>{{ forecast.expDate }}</td>
+      <td>{{ forecast.quantity }}</td>
+      <td>
+        <a href="#" class="btn btn-primary">Edit</a>
+        <button type="button" (click)="deletePost(forecast.id)" class="btn btn-danger">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
