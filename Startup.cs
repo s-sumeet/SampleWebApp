@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace SampleWebApp
 {
@@ -27,7 +28,17 @@ namespace SampleWebApp
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-             services.AddDbContext<MedicineContext>(options =>
+            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Implement Swagger UI",
+                    Description = "A simple example to Implement Swagger UI",
+                });
+            });
+            services.AddDbContext<MedicineContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MedicineContext")));
         }
 
@@ -60,7 +71,10 @@ namespace SampleWebApp
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showing API V1");
+            });
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
